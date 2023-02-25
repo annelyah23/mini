@@ -10,7 +10,7 @@ green='\e[0;32m'
 purple='\e[0;35m'
 orange='\e[0;33m'
 NC='\e[0m'
-export Server_URL="raw.githubusercontent.com/wunuit/Multiport/main"
+export Server_URL="raw.githubusercontent.com/JsPhantom/Multiport/main"
 clear
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
@@ -46,10 +46,10 @@ ver=$VERSION_ID
 country="ID"
 state="Project"
 locality="Parit Buntar"
-organization="wunuit-Project"
-organizationalunit="wunuit-Project"
-commonname="wunuit-Project"
-email="wunuit-project@gmail.com"
+organization="JsPhantom-Project"
+organizationalunit="JsPhantom-Project"
+commonname="JsPhantom-Project"
+email="JsPhantom-project@gmail.com"
 
 # go to root
 cd

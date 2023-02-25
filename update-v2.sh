@@ -1,12 +1,12 @@
 #!/bin/bash
-#Script Updater By wunuit
+#Script Updater By JsPhantom
 red='\e[1;31m'
 green='\e[0;32m'
 purple='\e[0;35m'
 orange='\e[0;33m'
 NC='\e[0m'
 # // Exporting URL Host
-export Server_URL="raw.githubusercontent.com/wunuit/Multiport/main"
+export Server_URL="raw.githubusercontent.com/annelyah23/mini/main"
 clear
 if [[ -e /usr/local/bin/xray ]]; then
      echo ""
@@ -28,11 +28,11 @@ if [[ -e /usr/local/bin/xray ]]; then
          #rm user-vless
 	 wget -O nf "https://${Server_URL}/media.sh" && chmod +x nf
 	 wget -O menu "https://${Server_URL}/menu.sh" && chmod +x menu
-	 #wget -O add-tr "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-tr.sh" && chmod +x add-tr
-	 #wget -O add-vless "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-vless.sh" && chmod +x add-vless
-	 #wget -O add-ws "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-ws.sh" && chmod +x add-ws
-	 #wget -O user-tr "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/user-tr.sh" && chmod +x user-tr
-	 #wget -O user-vless "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/user-vless.sh" && chmod +x user-vless
+	 #wget -O add-tr "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-tr.sh" && chmod +x add-tr
+	 #wget -O add-vless "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-vless.sh" && chmod +x add-vless
+	 #wget -O add-ws "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-ws.sh" && chmod +x add-ws
+	 #wget -O user-tr "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/user-tr.sh" && chmod +x user-tr
+	 #wget -O user-vless "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/user-vless.sh" && chmod +x user-vless
 	 echo ""
 	 echo -e "[${green}INFO${NC}] Successfully Install New Update File !"
 	 sleep 1
@@ -61,11 +61,11 @@ else
          #rm user-vless
 	 wget -O nf "https://${Server_URL}/media.sh" && chmod +x nf
 	 wget -O menu "https://${Server_URL}/menu.sh" && chmod +x menu
-	 #wget -O add-tr "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-tr.sh" && chmod +x add-tr
-	 #wget -O add-vless "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-vless.sh" && chmod +x add-vless
-	 #wget -O add-ws "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/add-ws.sh" && chmod +x add-ws
-	 #wget -O user-tr "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/user-tr.sh" && chmod +x user-tr
-	 #wget -O user-vless "https://raw.githubusercontent.com/wunuit/MultiportWebsocketPremium-V2/main/XRAY/user-vless.sh" && chmod +x user-vless
+	 #wget -O add-tr "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-tr.sh" && chmod +x add-tr
+	 #wget -O add-vless "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-vless.sh" && chmod +x add-vless
+	 #wget -O add-ws "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/add-ws.sh" && chmod +x add-ws
+	 #wget -O user-tr "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/user-tr.sh" && chmod +x user-tr
+	 #wget -O user-vless "https://raw.githubusercontent.com/annelyah23/mini/main/XRAY/user-vless.sh" && chmod +x user-vless
 	 echo ""
 	 echo -e "[${green}INFO${NC}] Successfully Install New Update File !"
 	 sleep 1

@@ -5,7 +5,7 @@
 # Auther  : Geo Project
 # (C) Copyright 2022
 # =========================================
-export Server_URL="raw.githubusercontent.com/wunuit/Multiport/main"
+export Server_URL="raw.githubusercontent.com/annelyah23/mini/main"
 
 clear
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')

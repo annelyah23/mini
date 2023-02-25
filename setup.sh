@@ -19,7 +19,7 @@ green='\e[0;32m'
 purple='\e[0;35m'
 orange='\e[0;33m'
 NC='\e[0m'
-export Server_URL="raw.githubusercontent.com/wunuit/Multiport/main"
+export Server_URL="raw.githubusercontent.com/annelyah23/mini/main"
 dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
 #########################
@@ -66,7 +66,7 @@ fi
 mkdir /var/lib/premium-script;
 mkdir /var/lib/crot-script;
 clear
-#echo -e "${red}♦️${NC} ${green}Established By wunuit 2022${NC} ${red}♦️${NC}"
+#echo -e "${red}♦️${NC} ${green}Established By JsPhantom 2022${NC} ${red}♦️${NC}"
 #DOWNLOAD SOURCE SCRIPT
 echo -e "${red}    ♦️${NC} ${green} CUSTOM SETUP DOMAIN VPS     ${NC}"
 echo -e "${red}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
@@ -116,7 +116,7 @@ sleep 2
 clear
 
 #rm -rf /usr/share/nginx/html/index.html
-#wget -q -O /usr/share/nginx/html/index.html "https://raw.githubusercontent.com/wunuit/Multiport/main/OTHERS/index.html"
+#wget -q -O /usr/share/nginx/html/index.html "https://raw.githubusercontent.com/annelyah23/mini/main/OTHERS/index.html"
 
 # Finish
 rm -f /root/ins-xray.sh
@@ -130,7 +130,7 @@ echo -e "${RB}      .-------------------------------------------.${NC}"
 echo -e "${RB}      |${NC}      ${CB}Installation Has Been Completed${NC}      ${RB}|${NC}"
 echo -e "${RB}      '-------------------------------------------'${NC}"
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
-echo -e "      ${WB}Multiport Websocket Autoscript By wunuit${NC}"
+echo -e "      ${WB}Multiport Websocket Autoscript By JsPhantom${NC}"
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e "  ${WB}»»» Protocol Service «««  |  »»» Network Protocol «««${NC}  "
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
