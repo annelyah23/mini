@@ -6,24 +6,6 @@
 # (C) Copyright 2022
 # =========================================
 clear
-#----- Auto Remove Vmess
-data=( `cat /usr/local/etc/xray/config.json | grep '^###' | cut -d ' ' -f 2 | sort | uniq`);
-now=`date +"%Y-%m-%d"`
-for user in "${data[@]}"
-do
-exp=$(grep -w "^### $user" "/usr/local/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
-d1=$(date -d "$exp" +%s)
-d2=$(date -d "$now" +%s)
-exp2=$(( (d1 - d2) / 86400 ))
-if [[ "$exp2" -le "0" ]]; then
-sed -i "/^### $user $exp/,/^},{/d" /usr/local/etc/xray/config.json
-sed -i "/^### $user $exp/,/^},{/d" /usr/local/etc/xray/none.json
-rm -f /usr/local/etc/xray/$user-tls.json /usr/local/etc/xray/$user-none.json /usr/local/etc/xray/$user-maxis.json /usr/local/etc/xray/$user-maxistv.json /usr/local/etc/xray/$user-celcom.json /usr/local/etc/xray/$user-digi.json /usr/local/etc/xray/$user-yes.json /usr/local/etc/xray/$user-umo.json
-rm -f /home/vps/public_html/$user-VMESSTLS.yaml /home/vps/public_html/$user-VMESSNTLS.yaml
-systemctl restart xray.service
-systemctl restart xray@none.service
-fi
-done
 
 #----- Auto Remove Vless
 data=( `cat /usr/local/etc/xray/vless.json | grep '^###' | cut -d ' ' -f 2 | sort | uniq`);
