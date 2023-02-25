@@ -29,70 +29,11 @@ tyblue() { echo -e "\\033[36;1m${*}\\033[0m"; }
 yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
 green() { echo -e "\\033[32;1m${*}\\033[0m"; }
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-cek=$( curl -sS https://raw.githubusercontent.com/wunuit/IP/main/access | awk '{print $2}'  | grep $MYIP )
-Name=$(curl -sS https://raw.githubusercontent.com/wunuit/IP/main/access | grep $MYIP | awk '{print $4}')
-if [[ $cek = $MYIP ]]; then
-echo -e "${green}Permission Accepted...${NC}"
-else
-echo -e "${red}Permission Denied!${NC}";
-echo ""
-echo -e "Your IP is ${red}NOT REGISTER${NC} @ ${red}EXPIRED${NC}"
-echo ""
-echo -e "Please Contact ${green}Admin${NC}"
-echo -e "Telegram : t.me/wunuit"
-exit 0
-fi
-clear
-
-BURIQ() {
-    curl -sS https://raw.githubusercontent.com/wunuit/IP/main/access >/root/tmp
-    data=($(cat /root/tmp | grep -E "^### " | awk '{print $4}'))
-    for user in "${data[@]}"; do
-        exp=($(grep -E "^### $user" "/root/tmp" | awk '{print $3}'))
-        d1=($(date -d "$exp" +%s))
-        d2=($(date -d "$biji" +%s))
-        exp2=$(((d1 - d2) / 86400))
-        if [[ "$exp2" -le "0" ]]; then
-            echo $user >/etc/.$user.ini
-        else
-            rm -f /etc/.$user.ini >/dev/null 2>&1
-        fi
-    done
-    rm -f /root/tmp
-}
-
-MYIP=$(wget -qO- ipv4.icanhazip.com);
-Name=$(curl -sS https://raw.githubusercontent.com/wunuit/IP/main/access | grep $MYIP | awk '{print $4}')
-echo $Name >/usr/local/etc/.$Name.ini
-CekOne=$(cat /usr/local/etc/.$Name.ini)
-
-Bloman() {
-    if [[ -f "/etc/.$Name.ini" ]]; then
-        CekTwo=$(cat /etc/.$Name.ini)
-        if [[ "$CekOne" = "$CekTwo" ]]; then
-            res="Expired"
-        fi
-    else
-        res="Permission Accepted..."
-    fi
-}
-
-PERMISSION() {
-    MYIP=$(wget -qO- ipv4.icanhazip.com);
-    IZIN=$(curl -sS https://raw.githubusercontent.com/wunuit/IP/main/access | awk '{print $2}' | grep $MYIP)
-    if [[ "$MYIP" = "$IZIN" ]]; then
-        Bloman
-    else
-        res="Permission Denied!"
-    fi
-    BURIQ
-}
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
 green() { echo -e "\\033[32;1m${*}\\033[0m"; }
 red() { echo -e "\\033[31;1m${*}\\033[0m"; }
-PERMISSION
 
 echo -e ""
 domain=$(cat /root/domain)
@@ -160,242 +101,6 @@ mkdir -p /home/vps/public_html
 
 # set uuid
 uuid=$(cat /proc/sys/kernel/random/uuid)
-
-# // Installing VMESS-TLS
-cat> /usr/local/etc/xray/config.json << END
-{
-  "log": {
-    "access": "/var/log/xray/access.log",
-    "error": "/var/log/xray/error.log",
-    "loglevel": "info"
-  },
-  "inbounds": [
-    {
-      "port": 1311,
-      "listen": "127.0.0.1",
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "${uuid}",
-            "alterId": 0,
-            "level": 0,
-            "email": ""
-#tls
-          }
-        ]
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings":
-            {
-              "acceptProxyProtocol": true,
-              "path": "/vmess-tls"
-            }
-      }
-    }
-  ],
-    "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {}
-    },
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "blocked"
-    }
-  ],
-  "routing": {
-    "rules": [
-      {
-        "type": "field",
-        "ip": [
-          "0.0.0.0/8",
-          "10.0.0.0/8",
-          "100.64.0.0/10",
-          "169.254.0.0/16",
-          "172.16.0.0/12",
-          "192.0.0.0/24",
-          "192.0.2.0/24",
-          "192.168.0.0/16",
-          "198.18.0.0/15",
-          "198.51.100.0/24",
-          "203.0.113.0/24",
-          "::1/128",
-          "fc00::/7",
-          "fe80::/10"
-        ],
-        "outboundTag": "blocked"
-      },
-      {
-        "inboundTag": [
-          "api"
-        ],
-        "outboundTag": "api",
-        "type": "field"
-      },
-      {
-        "type": "field",
-        "outboundTag": "blocked",
-        "protocol": [
-          "bittorrent"
-        ]
-      }
-    ]
-  },
-  "stats": {},
-  "api": {
-    "services": [
-      "StatsService"
-    ],
-    "tag": "api"
-  },
-  "policy": {
-    "levels": {
-      "0": {
-        "statsUserDownlink": true,
-        "statsUserUplink": true
-      }
-    },
-    "system": {
-      "statsInboundUplink": true,
-      "statsInboundDownlink": true
-    }
-  }
-}
-END
-
-# // INSTALLING VMESS NON-TLS
-cat> /usr/local/etc/xray/none.json << END
-{
-  "log": {
-    "access": "/var/log/xray/access.log",
-    "error": "/var/log/xray/error.log",
-    "loglevel": "info"
-  },
-  "inbounds": [
-    {
-      "listen": "127.0.0.1",
-      "port": 10085,
-      "protocol": "dokodemo-door",
-      "settings": {
-        "address": "127.0.0.1"
-      },
-      "tag": "api"
-    },
-    {
-     "listen": "127.0.0.1",
-     "port": "23456",
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "${uuid}",
-            "alterId": 0,
-            "email": ""
-#none
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-	"security": "none",
-        "wsSettings": {
-          "path": "/vmess-ntls",
-          "headers": {
-            "Host": ""
-          }
-         },
-        "quicSettings": {},
-        "sockopt": {
-          "mark": 0,
-          "tcpFastOpen": true
-        }
-      },
-      "sniffing": {
-        "enabled": true,
-        "destOverride": [
-          "http",
-          "tls"
-        ]
-      }
-    }
-  ],
-"outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {}
-    },
-    {
-      "protocol": "blackhole",
-      "settings": {},
-      "tag": "blocked"
-    }
-  ],
-  "routing": {
-    "rules": [
-      {
-        "type": "field",
-        "ip": [
-          "0.0.0.0/8",
-          "10.0.0.0/8",
-          "100.64.0.0/10",
-          "169.254.0.0/16",
-          "172.16.0.0/12",
-          "192.0.0.0/24",
-          "192.0.2.0/24",
-          "192.168.0.0/16",
-          "198.18.0.0/15",
-          "198.51.100.0/24",
-          "203.0.113.0/24",
-          "::1/128",
-          "fc00::/7",
-          "fe80::/10"
-        ],
-        "outboundTag": "blocked"
-      },
-      {
-        "inboundTag": [
-          "api"
-        ],
-        "outboundTag": "api",
-        "type": "field"
-      },
-      {
-        "type": "field",
-        "outboundTag": "blocked",
-        "protocol": [
-          "bittorrent"
-        ]
-      }
-    ]
-  },
-  "stats": {},
-  "api": {
-    "services": [
-      "StatsService"
-    ],
-    "tag": "api"
-  },
-  "policy": {
-    "levels": {
-      "0": {
-        "statsUserDownlink": true,
-        "statsUserUplink": true
-      }
-    },
-    "system": {
-      "statsInboundUplink": true,
-      "statsInboundDownlink": true,
-      "statsOutboundUplink" : true,
-      "statsOutboundDownlink" : true
-    }
-  }
-}
-END
 
 # // INSTALLING VLESS-TLS
 cat> /usr/local/etc/xray/vless.json << END
@@ -1131,18 +836,6 @@ sed -i '$ iproxy_set_header Connection "upgrade";' /etc/nginx/conf.d/xray.conf
 sed -i '$ iproxy_set_header Host \$http_host;' /etc/nginx/conf.d/xray.conf
 sed -i '$ i}' /etc/nginx/conf.d/xray.conf
 
-sed -i '$ ilocation = /vmess-ntls' /etc/nginx/conf.d/xray.conf
-sed -i '$ i{' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_redirect off;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_pass http://127.0.0.1:23456;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_http_version 1.1;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_set_header X-Real-IP \$remote_addr;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_set_header Upgrade \$http_upgrade;' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_set_header Connection "upgrade";' /etc/nginx/conf.d/xray.conf
-sed -i '$ iproxy_set_header Host \$http_host;' /etc/nginx/conf.d/xray.conf
-sed -i '$ i}' /etc/nginx/conf.d/xray.conf
-
 sed -i '$ ilocation = /trojan-ntls' /etc/nginx/conf.d/xray.conf
 sed -i '$ i{' /etc/nginx/conf.d/xray.conf
 sed -i '$ iproxy_redirect off;' /etc/nginx/conf.d/xray.conf
@@ -1160,19 +853,6 @@ echo -e "[ ${orange}SERVICE${NC} ] Restart All service"
 systemctl daemon-reload
 sleep 1
 echo -e "[ ${green}OK${NC} ] Enable & restart xray "
-
-# enable xray vmess ws tls
-echo -e "[ ${green}OK${NC} ] Restarting Vmess WS"
-systemctl daemon-reload
-systemctl enable xray.service
-systemctl start xray.service
-systemctl restart xray.service
-
-# enable xray vmess ws ntls
-systemctl daemon-reload
-systemctl enable xray@none.service
-systemctl start xray@none.service
-systemctl restart xray@none.service
 
 # enable xray vless ws tls
 echo -e "[ ${green}OK${NC} ] Restarting Vless WS"
@@ -1223,16 +903,6 @@ systemctl restart nginx
 sleep 1
 
 cd /usr/bin
-# // VMESS WS FILES
-echo -e "[ ${green}INFO${NC} ] Downloading Vmess WS Files"
-sleep 1
-wget -O add-ws "https://${Server_URL}/add-ws.sh" && chmod +x add-ws
-wget -O cek-ws "https://${Server_URL}/cek-ws.sh" && chmod +x cek-ws
-wget -O del-ws "https://${Server_URL}/del-ws.sh" && chmod +x del-ws
-wget -O renew-ws "https://${Server_URL}/renew-ws.sh" && chmod +x renew-ws
-wget -O user-ws "https://${Server_URL}/user-ws.sh" && chmod +x user-ws
-wget -O trial-ws "https://${Server_URL}/trial-ws.sh" && chmod +x trial-ws
-
 # // VLESS WS FILES
 echo -e "[ ${green}INFO${NC} ] Downloading Vless WS Files"
 sleep 1

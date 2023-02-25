@@ -48,7 +48,6 @@ echo -e "[ ${green}INFO${NC} ] Restart All Service"
 sleep 1
 systemctl restart nginx
 systemctl restart xray.service
-systemctl restart xray@none.service
 systemctl restart xray@vless.service
 systemctl restart xray@vnone.service
 systemctl restart xray@trojanws.service

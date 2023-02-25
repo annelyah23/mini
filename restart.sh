@@ -44,9 +44,6 @@ res3() {
 res4() {
     systemctl restart xray.service
 }
-res5() {
-    systemctl restart xray@none.service
-}
 res6() {
     systemctl restart xray@vless.service
 }
@@ -76,10 +73,6 @@ fun_bar 'res1'
 echo -e "  \033[1;91m Service Restart Cron\033[1;37m"
 fun_bar 'res2'
 echo -e "  \033[1;91m Service Restart Nginx\033[1;37m"
-fun_bar 'res3'
-echo -e "  \033[1;91m Service Restart Vmess TLS\033[1;37m"
-fun_bar 'res4'
-echo -e "  \033[1;91m Service Restart Vmess None TLS\033[1;37m"
 fun_bar 'res5'
 echo -e "  \033[1;91m Service Restart Vless TLS\033[1;37m"
 fun_bar 'res6'
